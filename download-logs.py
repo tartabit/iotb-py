@@ -1,3 +1,7 @@
+################################################
+##      Copyright, Tartabit, LLC.             ##
+################################################
+
 import argparse
 import json
 from client import IotbClient

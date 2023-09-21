@@ -1,3 +1,7 @@
+################################################
+##      Copyright, Tartabit, LLC.             ##
+################################################
+
 import requests
 import urllib.parse
 import json
