@@ -38,8 +38,8 @@ with open(fileName, "w") as f:
             for record in resp.body:
                 if not first:
                     print(",", file=f)
-                    first = True
-                json.dump(record, f)
+                first = False
+                json.dump(record, f, indent=2)
 
             endDateString = resp.body[-1]['ts']
         else:
