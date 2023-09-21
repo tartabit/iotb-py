@@ -32,7 +32,7 @@ first = True
 with open(fileName, "w") as f:
     print("[", file=f)
     while more:
-        resp = client.request("GET", "log", query={"limit": 20, "query": args.query, "start": startDateString, "end": endDateString})
+        resp = client.request("GET", "log", query={"limit": 1000, "query": args.query, "start": startDateString, "end": endDateString})
         if isinstance(resp.body, list):
             print(f"Got {len(resp.body)} records, first record: {resp.body[0]['ts']}, last record: {resp.body[-1]['ts']}")
             for record in resp.body:
