@@ -4,13 +4,13 @@
 
 import argparse
 import json
-from client import IotbClient
+from pyiotb import IotbClient
 import datetime
 
 parser = argparse.ArgumentParser(
     prog='IOTB Download Logs',
     description='Downloads logs from the IoT Bridge as a JSON document',
-    epilog='Copyright 2023 Tartabit, LLC.')
+    epilog='Copyright 2025 Tartabit, LLC.')
 parser.add_argument('-u', '--url', help='API URL', default="https://bridge-us.tartabit.com/api/v1/")
 parser.add_argument('-t', '--token', help='API Token', default="AT:gVUV7pVIM........9E4B1XMQP", required=True)
 parser.add_argument('-q', '--query', help='Query to filter logs', default=None)

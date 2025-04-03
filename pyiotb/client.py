@@ -1,11 +1,11 @@
 ################################################
 ##      Copyright, Tartabit, LLC.             ##
 ################################################
-
+import copy
 import requests
 import urllib.parse
 import json
-
+import logging
 
 class ApiReturn:
     status = 0
@@ -24,11 +24,18 @@ class ApiReturn:
         else:
             return self.body
 
+    def to_dict(self):
+        return {
+            'status': self.status,
+            'body': self.body
+        }
+
 
 class IotbClient:
     url = "https://bridge-us.tartabit.com/api/v1/"
     bearer_token = "<token>"
     debug = False
+    logger = logging.getLogger("iotb")
 
     requestHeaders = {
         "Authorization": f"Bearer {bearer_token}",
@@ -36,7 +43,8 @@ class IotbClient:
     }
 
     def __init__(self, url=None, token=None, user=None, password=None, debug=False):
-        self.url = url
+        if url:
+            self.url = url
         self.debug = debug
         if token:
             self.bearer_token = token
@@ -57,21 +65,23 @@ class IotbClient:
         # print(f"Body: {response} {response['token']}")
         return response.body['token']
 
-    def request(self, method, uri, query=None, body=None, headers=None):
-        requestHeaders = self.requestHeaders
+    def request(self, method, uri, query=None, body=None, headers=None, account_id = None):
+        requestHeaders = copy.copy(self.requestHeaders)
+        if account_id:
+            requestHeaders["Authorization"] = self.requestHeaders["Authorization"] + ':' + account_id
         if headers:
             requestHeaders = headers
         if self.debug:
-            print(f"Request: {method} {self.url + uri}")
-            print(f"Body: {requestHeaders}")
-            print(f"Query: {query}")
-            print(f"Body: {body}")
+            self.logger.debug(f"Request: {method} {self.url + uri}")
+            self.logger.debug(f"Body: {requestHeaders}")
+            self.logger.debug(f"Query: {query}")
+            self.logger.debug(f"Body: {body}")
         response = requests.request(method=method, url=self.url + uri, params=query, headers=requestHeaders, json=body)
         try:
             response_body = response.json()  # Parse the response as JSON
             if self.debug:
-                print("Response JSON:")
-                print(json.dumps(response_body, indent=4))  # Pretty-print the JSON response
+                self.logger.debug("Response JSON:")
+                self.logger.debug(json.dumps(response_body, indent=4))  # Pretty-print the JSON response
         except:
             try:
                 response_body = response.text

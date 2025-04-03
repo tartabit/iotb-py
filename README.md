@@ -31,6 +31,11 @@ python download-logs.py -u "https://bridge-us.tartabit.com/api/v1" -t "AT:xxxx" 
 * -t: The application token used to authenticate with the IoT Bridge.
 * -d: The number of days of logs to download.
 * -q: A query string used to filter the logs.  Quotes must be escaped with \'\\'.
+### trigger-comparison.py
+THis utility compares the triggers in two accounts and generates a file `diff.txt` with the differences between the two accounts.
+```bash
+python trigger-comparison.py --url1="https://bridge-us.tartabit.com/api/v1/" --url2="https://bride-us.armordata.io/api/v1/" --token1="AT:YYY" --token2="AT:XXX"
+```
 
 ## License
 
