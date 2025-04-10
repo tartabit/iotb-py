@@ -37,6 +37,15 @@ THis utility compares the triggers in two accounts and generates a file `diff.tx
 python trigger-comparison.py --url1="https://bridge-us.tartabit.com/api/v1/" --url2="https://bride-us.armordata.io/api/v1/" --token1="AT:YYY" --token2="AT:XXX"
 ```
 
+## Building
+To build the package, run the following command:
+```bash
+python -m venv .venv
+. venv/bin/activate
+python -m build
+twine upload dist/*
+```
+
 ## License
 
 Mozilla Public License Version 2.0
