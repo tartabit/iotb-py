@@ -60,6 +60,8 @@ class IotbClient:
             }
         if insecure:
             self.insecure = True
+        else:
+            self.insecure = False
 
     def login(self, user, password):
         response = self.request("POST", "login", query={"emailAddress": user, "password": password},
